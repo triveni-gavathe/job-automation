@@ -1,0 +1,82 @@
+2026-03-17T13:24:53.073Z INFO Is remote: false
+2026-03-17T13:24:53.074Z INFO Starting Local. Installation path: c:\Users\ranig\OneDrive\Desktop\finalpr
+2026-03-17T13:24:53.074Z INFO [MainProvider] Creating new MainProvider instance...
+2026-03-17T13:24:53.075Z INFO [TabsManager] Code view listener set up at initialization
+2026-03-17T13:24:53.076Z INFO Installation path exists: c:\Users\ranig\OneDrive\Desktop\finalpr
+2026-03-17T13:24:53.076Z INFO Initializing database with URL: file:c:\Users\ranig\OneDrive\Desktop\finalpr\pythagora-core\data\database\pythagora.db
+2026-03-17T13:24:53.080Z INFO Database file exists, skipping prisma generate/push for faster startup
+2026-03-17T13:24:53.080Z INFO Database initialized successfully
+2026-03-17T13:24:54.434Z INFO [Migration] Checking for database migration...
+2026-03-17T13:24:54.592Z INFO [Migration] No migration needed
+2026-03-17T13:26:31.325Z INFO Closing entire Pythagora extension...
+2026-03-17T13:26:31.330Z ERROR Error closing extension
+Error: Canceled
+Stack: Canceled: Canceled
+	at new aI (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:407:147949)
+	at r._remoteCall (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:407:154001)
+	at i.<computed>.s.charCodeAt.i.<computed> (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:407:150796)
+	at Zm._doExecuteCommand (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:494:48120)
+	at Zm.executeCommand (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:494:47567)
+	at Object.executeCommand (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:608:129144)
+	at closeEntirePythagoraExtension (c:\Users\ranig\.vscode\extensions\pythagoratechnologies.pythagora-vs-code-2.6.19\out\extension.js:542:31)
+	at Object.deactivate (c:\Users\ranig\.vscode\extensions\pythagoratechnologies.pythagora-vs-code-2.6.19\out\extension.js:409:15)
+	at ck._deactivate (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:498:14479)
+	at file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:498:12006
+	at Array.map (<anonymous>)
+	at ck._deactivateAll (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:498:11994)
+	at ck.terminate (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:498:12345)
+	at r.terminate (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:500:1072)
+	at Fs (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:800:11700)
+	at MessagePortMain.<anonymous> (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:800:8122)
+	at MessagePortMain.emit (node:events:519:28)
+	at MessagePortMain._internalPort.emit (node:electron/js2c/utility_init:2:2959)
+Extra context: {
+  "message": "Canceled"
+}
+2026-03-18T14:55:59.837Z INFO Is remote: false
+2026-03-18T14:55:59.850Z INFO Starting Local. Installation path: c:\Users\ranig\OneDrive\Desktop\finalpr
+2026-03-18T14:55:59.851Z INFO [MainProvider] Creating new MainProvider instance...
+2026-03-18T14:55:59.852Z INFO [TabsManager] Code view listener set up at initialization
+2026-03-18T14:55:59.891Z INFO Installation path exists: c:\Users\ranig\OneDrive\Desktop\finalpr
+2026-03-18T14:55:59.892Z INFO Initializing database with URL: file:c:\Users\ranig\OneDrive\Desktop\finalpr\pythagora-core\data\database\pythagora.db
+2026-03-18T14:55:59.895Z INFO Database file exists, skipping prisma generate/push for faster startup
+2026-03-18T14:55:59.896Z INFO Database initialized successfully
+2026-03-18T14:55:59.897Z INFO [Migration] Checking for database migration...
+2026-03-18T14:55:59.968Z INFO [Migration] No migration needed
+2026-03-18T14:58:05.795Z INFO [TabsManager] First file opened, triggering split view
+2026-03-18T14:58:05.796Z INFO [MainProvider] First file opened, creating split view
+2026-03-18T14:58:29.556Z INFO [TabsManager] First file opened, triggering split view
+2026-03-18T14:58:29.557Z INFO [MainProvider] First file opened, creating split view
+2026-03-18T14:58:59.016Z INFO [TabsManager] First file opened, triggering split view
+2026-03-18T14:58:59.017Z INFO [MainProvider] First file opened, creating split view
+2026-03-18T14:59:11.172Z INFO [TabsManager] First file opened, triggering split view
+2026-03-18T14:59:11.173Z INFO [MainProvider] First file opened, creating split view
+2026-03-18T14:59:12.094Z INFO [TabsManager] First file opened, triggering split view
+2026-03-18T14:59:12.094Z INFO [MainProvider] First file opened, creating split view
+2026-03-18T14:59:33.670Z INFO [TabsManager] First file opened, triggering split view
+2026-03-18T14:59:33.671Z INFO [MainProvider] First file opened, creating split view
+2026-03-18T15:03:57.398Z INFO Closing entire Pythagora extension...
+2026-03-18T15:03:57.414Z ERROR Error closing extension
+Error: Canceled
+Stack: Canceled: Canceled
+	at new aI (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:407:147949)
+	at r._remoteCall (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:407:154001)
+	at i.<computed>.s.charCodeAt.i.<computed> (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:407:150796)
+	at Zm._doExecuteCommand (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:494:48120)
+	at Zm.executeCommand (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:494:47567)
+	at Object.executeCommand (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:608:129144)
+	at closeEntirePythagoraExtension (c:\Users\ranig\.vscode\extensions\pythagoratechnologies.pythagora-vs-code-2.6.19\out\extension.js:542:31)
+	at Object.deactivate (c:\Users\ranig\.vscode\extensions\pythagoratechnologies.pythagora-vs-code-2.6.19\out\extension.js:409:15)
+	at ck._deactivate (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:498:14479)
+	at file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:498:12006
+	at Array.map (<anonymous>)
+	at ck._deactivateAll (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:498:11994)
+	at ck.terminate (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:498:12345)
+	at r.terminate (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:500:1072)
+	at Fs (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:800:11700)
+	at MessagePortMain.<anonymous> (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/ce099c1ed2/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:800:8122)
+	at MessagePortMain.emit (node:events:519:28)
+	at MessagePortMain._internalPort.emit (node:electron/js2c/utility_init:2:2959)
+Extra context: {
+  "message": "Canceled"
+}
