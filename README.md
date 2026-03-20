@@ -1,2 +1,2 @@
 # job-automation
-this is the django project ai based 
+This is the django project ai based 
