@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+{% endblock %}
+
+{% block content %}
+
+<p> user:{{ request.user.username }}</p>
+<p>username:{{ request.user.username }}</p>
+<p>frist name:{{ request.user.first_name }}</p>
+<p>last name:{{ request.user.last_name }}</p>
+<p>Email:{{ request.user.email }}</p>
+<p></p>
+
+
+{% endblock  %}

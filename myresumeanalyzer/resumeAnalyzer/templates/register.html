@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<main id="main">
+    {% if messages %}
+        {% for msg in messages %}
+            <p>{{ msg }}</p>
+        {% endfor %}    
+    {% endif %}    
+    <section id="form-content">
+        <p class="text-center">Already have account? <a href="{% url 'login_' %}">Login here</a></p>
+        <form action="" class="form-main" method="post">
+            {% csrf_token %}
+            <label for="fname">Enter First Nmae:</label>
+            <input type="text" name="fname" id="fname" required> <br>
+            <label for="lname">Enter Last Name:</label>
+            <input type="text" name="lname" id="lname" required> <br>
+            <label for="email">Enter the Email:</label>
+            <input type="email" name="email" id="email" required> <br>
+            <label for="uname">Enter username:</label>
+            <input type="text" name="uname" id="uname" required> <br>
+            <label for="pasw">Enter your Password:</label>
+            <input type="password" name="pasw" id="pasw" required> <br>
+            <label for="pasw2">Confrim Password </label>
+            <input type="password" name="pasw2" id="pasw2" required> <br>
+            <button type="submit">Register </button>
+
+        </form>
+    </section>
+</main>
+{% endblock %}
