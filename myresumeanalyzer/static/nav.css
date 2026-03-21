@@ -1,53 +1,89 @@
-*{
-    padding: 0%;
-    margin: 0%;
+* {
+    padding: 0;
+    margin: 0;
     box-sizing: border-box;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-#nav_blk{
+/* NAVBAR */
+#nav_blk {
     height: 80px;
-    width:100%;
-    padding: 0px 20px;
-    background-color: rgb(253,250,247);
+    width: 100%;
+    padding: 0 20px;
+    background-color: rgb(192, 201, 93);
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-/* #nav_blk .logo_blk{
-    border-radius: 5px;
-    background-color: gold;
-    padding: ;
-} */
-#nav_blk .logo_blk h2{
+
+/* Logo */
+#nav_blk .logo_blk h2 {
     background-color: gold;
     padding: 7px 15px;
-    font-style: 18px;
+    font-size: 18px;
+    /* ✅ fixed */
     border-radius: 25px;
     box-shadow: 2px 4px 10px grey;
 }
 
-#nav_blk .links_blk{
+/* Links */
+#nav_blk .links_blk {
     width: 60%;
 }
 
-#nav_blk .links_blk ul{
-    height: inherit;
-    width: 100%;
+#nav_blk .links_blk ul {
     display: flex;
     justify-content: space-around;
     list-style-type: none;
-
 }
-#nav_blk .links_blk ul li a{
+
+#nav_blk .links_blk ul li a {
     text-decoration: none;
     color: black;
-    font-size:18px;
-    text-transform:capitalize ;
-    font-weight: 100;
+    font-size: 18px;
+    text-transform: capitalize;
 }
 
-    
-#nav_blk .links_blk ul li a:hover{
+#nav_blk .links_blk ul li a:hover {
     opacity: 0.4;
+}
+
+/* Tablet */
+@media screen and (max-width:1000px) {
+    #nav_blk {
+        padding: 1rem 1.5rem;
+        /* background-color: red; */
+    }
+
+    #nav_blk .links_blk ul li a {
+        font-size: 16px;
+    }
+}
+
+/* Mobile */
+@media screen and (max-width:600px) {
+
+    #nav_blk {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+        /* background-color: blue; */
+        /* ✅ important */
+    }
+
+    #nav_blk .links_blk {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    #nav_blk .links_blk ul {
+        flex-direction: column;
+        /* ✅ important fix */
+        gap: 10px;
+    }
+
+    #nav_blk .links_blk ul li a {
+        font-size: 16px;
+        padding: 5px 0;
+    }
 }
