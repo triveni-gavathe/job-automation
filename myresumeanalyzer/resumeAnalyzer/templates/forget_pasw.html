@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>forget password </h3>
+<p>enter your username and we will send an otp to your email </p>
+{% if messages %}
+    {% for msg in messages %}
+        <p>{{ msg.tags}}</p>
+            {{msg}}
+    {%endfor %} 
+{% endif %}    
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <label for="uname_">Username</label>
+    <input type="text" name="uname" id="uname_" placeholder="Enter your username" required>
+    <button type="submit">send otp </button>
+
+</form>
+<p>rember password ??
+    <a href="{% url 'login_' %}">Login here </a>
+</p>
+{% endblock %}

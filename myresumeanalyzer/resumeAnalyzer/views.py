@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from .models import OTP
 import random
+from  django.http import HttpResponse
 
 # Create your views here.
 @login_required
@@ -72,8 +73,8 @@ def profile(request):
         if not request.user.is_authenticated:
             return redirect('login_')
         U=request.user
-        U.first_name=request.POST.get('first_name','')
-        U.last_name=request.POST.get('last_name' ,'')
+        U.first_name=request.POST.get('fname','')
+        U.last_name=request.POST.get('lname' ,'')
         U.email=request.POST.get('email','')
         U.save()
         messages.success(request,'profile updated susccessfully !')
@@ -83,17 +84,27 @@ def contact(request):
     return render(request,'contact.html')    
 def job_tracker(request):
     return render(request,'job_tracker.html')
+
+
+#forget password logic with otp verification
 def forget_pasw(request):
+    
+
     if request.method=='POST':
-        username=request.POST=['uname']
+     
+        username=request.POST.get('uname','').strip()
+        if not username:
+            messages.error(request,"please enter your username")
+            return render(request,'forget_pasw.html')
         try:
-            u=User.objects.get(usernmae=username)
+            u=User.objects.get(username=username)
             #genretate the 6 didgit otp from gmail 
-            otp_code =str(random.randiant(100000,999999))
+            otp_code =str(random.randint(100000,999999))
             #otp save to database
             OTP.objects.create(user=u,otp_code=otp_code)
             #send otp to email
-            send_mail(
+            try:
+                send_mail(
                 subject='your otp code -AI CAREER ASSISTANT',
                 message=f'''
                 hi {u.username},
@@ -104,13 +115,15 @@ def forget_pasw(request):
                 ''',
                 from_email=None,
                 recipient_list=[u.email],
-                fail_silently=False
-                
-            )
-            #save userame in the session 
-            request.session['fb_user']=u.username
-            messages.success(request,f'otp sent your email')
-            return redirect('verify_otp')
+                fail_silently=False )
+              
+                #save userame in the session 
+                request.session['fp_user']=u.username
+                messages.success(request,f'otp sent your email')
+                return redirect('verify_otp')
+            except Exception as e:
+                messages.error(request,f'email sending failed:{str(e)}') 
+                return render(request,'forget_pasw.html')  
         except User.DoesNotExist:
             messages.error(request,'username not found')   
     return render(request,'forget_pasw.html')
@@ -151,6 +164,29 @@ def new_pasw(request):
     if not username or not verified:
         return redirect('forget_pasw')
     try:
-        User=User
-    return render(request,'new_pasw.html')
+        user=User.objects.get(username=username)
+    except User.DoesNotExits:
+        return redirect('forget_pasw')
+    if request.method=='POST':
+        new_password=request.POST['new_pasw']
+        new_password2=request.POST['new_pasw2']
+        if new_password!=new_password2:
+            messages.error(request,'password do not match')
+            return render(request,'new_pasw.html')
+        if len(new_password)<6:
+            messages.error(request,'password must be at least 6 charaters')
+            return render(request,'new_pasw.html')
+        
+        user.set_password(new_password)
+        user.save()
+        #clear session
+        del request.session['fp_user']
+        del request.session['otp_verified']
+        messages.success(request,'password changed! Please login.')
+        return redirect('login_')
     
+
+    return render(request,'new_pasw.html')
+
+def test_email(request):
+    return HttpResponse("workinh")

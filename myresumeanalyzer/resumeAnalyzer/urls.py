@@ -11,5 +11,7 @@ urlpatterns=[
     path('contact/',contact,name='contact'),
     path('job_tracker/',job_tracker,name='job_tracker'),
     path('forget_pasw/',forget_pasw,name='forget_pasw'),
+    path('verify_otp/',verify_otp,name='verify_otp'),
+    path('new_pasw/',new_pasw,name='new_pasw'),
     
 ]

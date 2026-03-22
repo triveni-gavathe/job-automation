@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Set New password </h3>
+<p>chose the strong new password </p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <label for="new_pasw">New Password </label>
+    <input type="password" name="new_pasw" id="new_pasw" required placeholder="Enter the password ">
+    <label for="new_pasw2">Confrim Password</label>
+    <input type="password" name="new_pasw2" id="new_pasw2" required placeholder="Re-Enter the password">
+    <button type="submit">change password </button>
+
+</form>
+{% endblock %}

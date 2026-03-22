@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Enter otp </h3>
+<p> we ssent the otp to your register email 
+    it expires in 10 minutes 
+</p>
+{% if error %}
+    {% for msg in messages %}
+        {% msg %}
+    {% endfor %}   
+{% endif %}     
+<form action="" method="POST">
+    {% csrf_token %}
+    <label for="otp">OTP Code </label>
+    <input type="text" name="otp" id="otp" placeholder="Enter 6-digit Otp" maxlength="6" required>
+    <button type="submit">verify otp </button>
+</form>
+<p>Did not receive otp 
+    <a href="{% url 'forget_pasw' %}">Try again </a>
+</p>
+{% endblock %}

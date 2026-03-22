@@ -142,12 +142,12 @@ load_dotenv()
 GEMINI_API_KEY=os.getenv('GEMINI_API_KEY')
 # email address (for alerts later)
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'  #its emails  server used the smtp real server used in the prodcution
-EMAIL_HOST='smtp.gmial.com'
+EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT=587
 EMAIL_USE_TLS=True
 EMAIL_HOST_USER=os.getenv('EMAIL_USER')
 EMAIL_HOST_PASSWORD=os.getenv('EMAIL_PASS')
-
+DEFAULT_FROM_EMAIL  = os.getenv('EMAIL_USER')
 
 # Tell Django where your login page is
 LOGIN_URL = '/login_/'
