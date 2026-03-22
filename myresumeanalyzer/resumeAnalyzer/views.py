@@ -3,6 +3,9 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.mail import send_mail
+from .models import OTP
+import random
 
 # Create your views here.
 @login_required
@@ -82,6 +85,72 @@ def job_tracker(request):
     return render(request,'job_tracker.html')
 def forget_pasw(request):
     if request.method=='POST':
-        paws=request.POST=['pasw']
-        
+        username=request.POST=['uname']
+        try:
+            u=User.objects.get(usernmae=username)
+            #genretate the 6 didgit otp from gmail 
+            otp_code =str(random.randiant(100000,999999))
+            #otp save to database
+            OTP.objects.create(user=u,otp_code=otp_code)
+            #send otp to email
+            send_mail(
+                subject='your otp code -AI CAREER ASSISTANT',
+                message=f'''
+                hi {u.username},
+                your otp is:{otp_code}
+                this code expires in the 10 minutes.
+                Do not share this code with anyone 
+                -AI CAREER ASSITANT 
+                ''',
+                from_email=None,
+                recipient_list=[u.email],
+                fail_silently=False
+                
+            )
+            #save userame in the session 
+            request.session['fb_user']=u.username
+            messages.success(request,f'otp sent your email')
+            return redirect('verify_otp')
+        except User.DoesNotExist:
+            messages.error(request,'username not found')   
     return render(request,'forget_pasw.html')
+
+#vedrify otp
+def verify_otp(request):
+    username=request.session.get('fp_user')
+    if not username:
+        return redirect('forget_pasw')
+    if request.method=='POST':
+        entered_otp=request.POST['otp']
+        try:
+            user=User.objects.get(username=username)
+            #get the latetest unused otp
+            otp_obj=OTP.objects.filter(
+                user=user,
+                otp_code=entered_otp,
+                is_used=False
+            ).latest( 'created_at')
+            #check if the expired
+            if otp_obj.is_expired():
+                messages.error(request,'OTP has expired. please try again.')
+                return render(request,'verify_otp.html')
+            #mark as otp
+            otp_obj.is_used=True
+            otp_obj.save()
+            #allow password reset
+            request.session['otp_verified']=True
+            return redirect('new_pasw')
+        except OTP.DoesNotExist:
+            messages.error(request,"invalid otp.please try again")
+        
+    return render(request,'verify_otp.html')
+#new password
+def new_pasw(request):
+    username=request.session.get('fp_user')
+    verified=request.session.get('otp_verified')
+    if not username or not verified:
+        return redirect('forget_pasw')
+    try:
+        User=User
+    return render(request,'new_pasw.html')
+    
