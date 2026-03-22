@@ -5,18 +5,17 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 # Create your views here.
+@login_required
 def home(request):
-    if request.user.is_authenticated:
-        return render(request,'home.html')
-        
-    return redirect('login')
+   
+    return render(request,'home.html')
 def resume_analyzer(request):
     return render(request,'resume_analyzer.html')
 
 #login
 def login_(request):
-    # if request.user.is_authenticated:
-    #     return redirect('home')
+    if request.user.is_authenticated:
+        return redirect('home')
     if request.method=='POST':
         username=request.POST['uname']
         password=request.POST['password']
@@ -35,8 +34,8 @@ def logout_(request):
 
 #register 
 def register(request):
-    # if request.user.is_authenticated:
-    #     return redirect('home')
+    if request.user.is_authenticated:
+        return redirect('home')
     if request.method=='POST':
         username=request.POST['uname']
         first_name=request.POST['fname']
@@ -67,6 +66,8 @@ def register(request):
 @login_required
 def profile(request):
     if request.method=='POST':
+        if not request.user.is_authenticated:
+            return redirect('login_')
         U=request.user
         U.first_name=request.POST.get('first_name','')
         U.last_name=request.POST.get('last_name' ,'')
@@ -79,3 +80,8 @@ def contact(request):
     return render(request,'contact.html')    
 def job_tracker(request):
     return render(request,'job_tracker.html')
+def forget_pasw(request):
+    if request.method=='POST':
+        paws=request.POST=['pasw']
+        
+    return render(request,'forget_pasw.html')

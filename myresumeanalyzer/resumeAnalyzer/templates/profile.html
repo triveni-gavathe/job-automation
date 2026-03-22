@@ -4,13 +4,42 @@
 {% endblock %}
 
 {% block content %}
+{% if request.user.is_authenticated %}
+    <p>username:{{ request.user.username }}</p>
+    <p> user:{{ request.user.username }}</p>
+    <p>frist name:{{ request.user.first_name }}</p>
+    <p>last name:{{ request.user.last_name }}</p>
+    <p>Email:{{ request.user.email }}</p>
+    <p></p>
 
-<p> user:{{ request.user.username }}</p>
-<p>username:{{ request.user.username }}</p>
-<p>frist name:{{ request.user.first_name }}</p>
-<p>last name:{{ request.user.last_name }}</p>
-<p>Email:{{ request.user.email }}</p>
-<p></p>
+<form action="" method="post">
+    {% csrf_token%}
+    <h3>update profile</h3>
+    <label for="fname">First Name:</label>
+    <input type="text" name="fname" id="fname" value="{{ request.user.first_name }}">
+    <label for="lname">Last Name:</label>
+    <input type="text" name="lname" id="lname" value="{{ request.user.last_name}}">
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email"  value="{{ request.user.email }}">
+    <label for="unmae">Username</label>
+    <input type="text" name="uname" id="uname" value="{{ request.user.username }}">
+    <button type="submit">save changes </button>
 
 
+</form>
+
+
+<section>
+<p> Account info </p>
+<div> resume</div>
+<div>job saved </div>
+<div>apllied </div>
+<p>member since :{{ request.user.date__joined|date:"d m y" }}</p>
+</section>
+{% else  %}
+<p> you are m=not logged in please login to view and edit  your profile profile </p>
+
+<a href="{% url 'login_' %}">login here </a>
+<a href="{% url 'register' %}">register</a>
+{% endif %}
 {% endblock  %}

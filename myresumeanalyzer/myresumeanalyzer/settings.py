@@ -112,7 +112,10 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = True   
+
+
+
 
 
 # Static files (CSS, JavaScript, Images)
@@ -144,3 +147,9 @@ EMAIL_PORT=587
 EMAIL_USE_TLS=True
 EMAIL_HOST_USER=os.getenv('EMAIL_USER')
 EMAIL_HOST_PASSWORD=os.getenv('EMAIL_PASS')
+
+
+# Tell Django where your login page is
+LOGIN_URL = '/login_/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login_/'
