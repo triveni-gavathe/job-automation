@@ -28,7 +28,8 @@ def login_(request):
             login(request,user)
             return redirect('home')
         else:
-            messages.error(request,'invalid username and password')            
+            messages.error(request,'invalid username and password')  
+            return redirect('login_')          
     return render(request,'login_.html')
 
 
