@@ -1,0 +1,22 @@
+2026-03-22T20:09:24.298Z INFO Is remote: false
+2026-03-22T20:09:24.315Z INFO Starting Local. Installation path: c:\Users\ranig\OneDrive\Desktop\finalpr
+2026-03-22T20:09:24.316Z INFO [MainProvider] Creating new MainProvider instance...
+2026-03-22T20:09:24.317Z INFO [TabsManager] Code view listener set up at initialization
+2026-03-22T20:09:24.317Z INFO Installation path exists: c:\Users\ranig\OneDrive\Desktop\finalpr
+2026-03-22T20:09:24.318Z INFO Initializing database with URL: file:c:\Users\ranig\OneDrive\Desktop\finalpr\pythagora-core\data\database\pythagora.db
+2026-03-22T20:09:24.321Z INFO Database file exists, skipping prisma generate/push for faster startup
+2026-03-22T20:09:24.321Z INFO Database initialized successfully
+2026-03-22T20:09:24.322Z INFO [Migration] Checking for database migration...
+2026-03-22T20:09:24.442Z INFO [Migration] No migration needed
+2026-03-23T13:54:44.123Z INFO Is remote: false
+2026-03-23T13:54:44.137Z INFO Starting Local. Installation path: c:\Users\ranig\OneDrive\Desktop\finalpr
+2026-03-23T13:54:44.137Z INFO [MainProvider] Creating new MainProvider instance...
+2026-03-23T13:54:44.138Z INFO [TabsManager] Code view listener set up at initialization
+2026-03-23T13:54:44.139Z INFO Installation path exists: c:\Users\ranig\OneDrive\Desktop\finalpr
+2026-03-23T13:54:44.140Z INFO Initializing database with URL: file:c:\Users\ranig\OneDrive\Desktop\finalpr\pythagora-core\data\database\pythagora.db
+2026-03-23T13:54:44.142Z INFO Database file exists, skipping prisma generate/push for faster startup
+2026-03-23T13:54:44.143Z INFO Database initialized successfully
+2026-03-23T13:54:44.144Z INFO [Migration] Checking for database migration...
+2026-03-23T13:54:44.254Z INFO [Migration] No migration needed
+2026-03-23T13:55:01.036Z INFO [TabsManager] First file opened, triggering split view
+2026-03-23T13:55:01.036Z INFO [MainProvider] First file opened, creating split view
