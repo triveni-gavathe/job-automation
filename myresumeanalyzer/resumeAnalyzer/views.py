@@ -190,4 +190,4 @@ def new_pasw(request):
     return render(request,'new_pasw.html')
 
 def test_email(request):
-    return HttpResponse("workinh")
+    return HttpResponse("working")

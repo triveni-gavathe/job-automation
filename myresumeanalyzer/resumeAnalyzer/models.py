@@ -27,4 +27,12 @@ class OTP(models.Model):
     def __str__(self):
         return f"{self.user.username}-{self.otp_code}"
 
-    
+class JobMatchAnalysis(models.Model):
+    Resume=models.ForeignKey(Resume,on_delete=models.CASCADE)
+    job_description=models.TextField()
+    match_score=models.IntegerField(default=0)
+    missing_skills=models.TextField(blank=True)
+    analyzed_at=models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return f"{self.match_score}%-{self.analyzed_at}"
+        
