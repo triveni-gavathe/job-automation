@@ -20,3 +20,28 @@
 2026-03-23T13:54:44.254Z INFO [Migration] No migration needed
 2026-03-23T13:55:01.036Z INFO [TabsManager] First file opened, triggering split view
 2026-03-23T13:55:01.036Z INFO [MainProvider] First file opened, creating split view
+2026-03-23T14:51:21.175Z INFO Closing entire Pythagora extension...
+2026-03-23T14:51:21.189Z ERROR Error closing extension
+Error: Canceled
+Stack: Canceled: Canceled
+	at new bI (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/07ff9d6178/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:407:148227)
+	at r._remoteCall (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/07ff9d6178/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:407:154279)
+	at i.<computed>.s.charCodeAt.i.<computed> (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/07ff9d6178/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:407:151074)
+	at dg._doExecuteCommand (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/07ff9d6178/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:494:48120)
+	at dg.executeCommand (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/07ff9d6178/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:494:47567)
+	at Object.executeCommand (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/07ff9d6178/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:618:135323)
+	at closeEntirePythagoraExtension (c:\Users\ranig\.vscode\extensions\pythagoratechnologies.pythagora-vs-code-2.6.19\out\extension.js:542:31)
+	at Object.deactivate (c:\Users\ranig\.vscode\extensions\pythagoratechnologies.pythagora-vs-code-2.6.19\out\extension.js:409:15)
+	at hk._deactivate (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/07ff9d6178/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:498:14479)
+	at file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/07ff9d6178/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:498:12006
+	at Array.map (<anonymous>)
+	at hk._deactivateAll (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/07ff9d6178/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:498:11994)
+	at hk.terminate (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/07ff9d6178/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:498:12345)
+	at r.terminate (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/07ff9d6178/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:500:1072)
+	at Us (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/07ff9d6178/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:810:11700)
+	at MessagePortMain.<anonymous> (file:///c:/Users/ranig/AppData/Local/Programs/Microsoft%20VS%20Code/07ff9d6178/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:810:8122)
+	at MessagePortMain.emit (node:events:519:28)
+	at MessagePortMain._internalPort.emit (node:electron/js2c/utility_init:2:2959)
+Extra context: {
+  "message": "Canceled"
+}
