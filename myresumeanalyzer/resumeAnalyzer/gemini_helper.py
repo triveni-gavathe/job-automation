@@ -2,7 +2,7 @@ from google import genai
 from django.conf import settings
 client=genai.Client(api_key=settings.GEMINI_API_KEY)
 
-def analye_resume(resume_text):
+def analyze_resume(resume_text):
     prompt=f"""
     you are an expert HR recuriter and resume coach
     analyze the following resume and respond only in json format
@@ -43,4 +43,4 @@ def match_resume_jd(resume_text,jd_text):
         model="gemini-2.0-flash-lite",
         contents=prompt
     )
-    return resume_text
+    return response.text

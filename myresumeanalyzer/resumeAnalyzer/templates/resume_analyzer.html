@@ -6,6 +6,32 @@
 <div class="card_container">
                     <h4>📄 Resume Analyzer</h4>
                     <p>Upload your resume and get AI powered feedback and score</p>
-                    <a href="#" class="btn btn-primary">Analyze Resume</a>
+                    
                 </div>
+
+ 
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div>
+                        <label for="file">Select Resume file </label>
+                        <input type="file" id="file" name="file"  required accept=".pdf">
+                        <p>PDf only accepted upto 5MB</p>
+                        <button type="submit">Analyze Resume With AI </button>
+                    </div>
+                </form>
+
+                {% if user_resumes %}
+                    <h2>Your Uploaded Resumes</h2>
+                    <div>
+                        {% for r in user_resumes %}
+                            <div class="resume_card">
+                                <h3>{{ r.original_filename }}</h3>
+                                <p>Uploaded on: {{ r.uploaded_at|date:"M d, Y" }}</p>
+                                <span> score:{{ r.score}}/100</span>
+                                <a href="{% url 'resume_result' r.id %}">View Analysis Result</a>
+                            
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
 {% endblock %}
