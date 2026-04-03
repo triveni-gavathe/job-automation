@@ -1,69 +1,129 @@
 {% extends 'base.html' %}
-
 {% block content %}
-    <h1>Resume Analysis Result</h1>
-    <p><strong>Resume:</strong> {{ resume.original_filename }}</p>
-    <p><strong>Uploaded on:</strong> {{ resume.uploaded_at|date:"M d, Y" }}</p>
-    <p><strong>Score:</strong> {{ resume.score }}/100</p>
-    <h2>Feedback</h2>
-    <p>{{ resume.feedback }}</p>
+<div class="row mt-4">
+    <div class="col-md-8">
 
+        <!-- Score Card -->
+        <div class="card shadow p-4 mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-4 text-center">
+                    <div style="font-size:64px; font-weight:bold;
+                        color:{% if analysis.score >= 70 %}#28a745
+                        {% elif analysis.score >= 50 %}#ffc107
+                        {% else %}#dc3545{% endif %}">
+                        {{ analysis.score }}
+                    </div>
+                    <div class="text-muted">out of 100</div>
+                    <div class="progress mt-2" style="height:8px;">
+                        <div class="progress-bar
+                            {% if analysis.score >= 70 %}bg-success
+                            {% elif analysis.score >= 50 %}bg-warning
+                            {% else %}bg-danger{% endif %}"
+                            style="width:{{ analysis.score }}%">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <h4 class="fw-bold">Resume Score</h4>
+                    <p class="text-muted">{{ analysis.summary }}</p>
+                    <a href="{% url 'resume_analyzer' %}"
+                        class="btn btn-outline-primary btn-sm">
+                        Upload New Resume
+                    </a>
+                </div>
+            </div>
+        </div>
 
-    strengths
-    <h3>Strengths</h3>
-    <ul>
-        {% for s in resume.strengths %}
-            <li>{{ s }}</li>
-        {% endfor %}
-    </ul>
-    <h3>Areas for Improvement</h3>
-    <ul>
-        {% for a in resume.areas_for_improvement %}
-            <li>{{ a }}</li>
-        {% endfor %}
-    </ul>
-
-    weakness
-    <h3>Weakness</h3>
-    <ul>
-        {% for w in resume.weakness %}
-            <li>{{ w }}</li>
-        {% endfor %}
-    </ul>
-missing keywords
-    <h3>Missing Keywords</h3>
-    <ul>
-        {% for k in resume.missing_keywords %}
-            <li>{{ k }}</li>
-        {% endfor %}
-    </ul>
-
-   <div>
-    
-    <p>paste a job descirtpion to see the how well your resume matches</p>
-    <form action="" method="post">
-        {% csrf_token %}
-
-        <textarea name="jd_text" id="" placeholder="Paste job description here..."></textarea>
-        <button type="submit">Match Resume with JD</button>
-
-
-    </form>
-    {% if jd_match %}
-        <h2>JD Match Result</h2>
-        <p><strong>Match Score:</strong> {{ jd_match.match_score }}/100</p>
-        <h3>Matched Keywords</h3>
-        <ul>
-            {% for k in jd_match.matched_keywords %}
-                <li>{{ k }}</li>
+        <!-- Strengths -->
+        <div class="card shadow p-4 mb-4">
+            <h5 class="fw-bold text-success mb-3">✅ Strengths</h5>
+            {% for strength in analysis.strengths %}
+            <div class="d-flex align-items-start mb-2">
+                <span class="text-success me-2">•</span>
+                <span>{{ strength }}</span>
+            </div>
             {% endfor %}
-        </ul>
-        <h3>Missing Keywords from JD</h3>
-        <ul>
-            {% for k in jd_match.missing_keywords_from_jd %}
-                <li>{{ k }}</li>
+        </div>
+
+        <!-- Weaknesses -->
+        <div class="card shadow p-4 mb-4">
+            <h5 class="fw-bold text-danger mb-3">❌ Weaknesses</h5>
+            {% for weakness in analysis.weaknesses %}
+            <div class="d-flex align-items-start mb-2">
+                <span class="text-danger me-2">•</span>
+                <span>{{ weakness }}</span>
+            </div>
             {% endfor %}
-        </ul>
-    {% endif %}
-   </div>
+        </div>
+
+        <!-- Improvements -->
+        <div class="card shadow p-4 mb-4">
+            <h5 class="fw-bold text-primary mb-3">💡 Improvements</h5>
+            {% for improvement in analysis.improvements %}
+            <div class="d-flex align-items-start mb-2">
+                <span class="text-primary me-2">{{ forloop.counter }}.</span>
+                <span>{{ improvement }}</span>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Missing Keywords -->
+        <div class="card shadow p-4 mb-4">
+            <h5 class="fw-bold text-warning mb-3">🔑 Missing Keywords</h5>
+            <div class="d-flex flex-wrap gap-2">
+                {% for keyword in analysis.missing_keywords %}
+                <span class="badge bg-warning text-dark px-3 py-2">
+                    {{ keyword }}
+                </span>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JD Match Sidebar -->
+    <div class="col-md-4">
+        <div class="card shadow p-4 mb-4">
+            <h5 class="fw-bold mb-3">🎯 Match vs Job Description</h5>
+            <p class="text-muted" style="font-size:0.9rem;">
+                Paste a job description to see how well your resume matches
+            </p>
+            <form method="POST">
+                {% csrf_token %}
+                <textarea name="jd_text" class="form-control mb-3"
+                    rows="6"
+                    placeholder="Paste job description here...">
+                </textarea>
+                <button type="submit" class="btn btn-success w-100">
+                    Check Match
+                </button>
+            </form>
+        </div>
+
+        {% if jd_match %}
+        <div class="card shadow p-4">
+            <h5 class="fw-bold mb-3">Match Results</h5>
+            <div class="text-center mb-3">
+                <div style="font-size:48px; font-weight:bold;
+                    color:{% if jd_match.match_score >= 70 %}#28a745
+                    {% elif jd_match.match_score >= 50 %}#ffc107
+                    {% else %}#dc3545{% endif %}">
+                    {{ jd_match.match_score }}%
+                </div>
+                <div class="text-muted">Match Score</div>
+            </div>
+            <p class="text-muted">{{ jd_match.recommendation }}</p>
+            <h6 class="fw-bold text-success">Matching Skills</h6>
+            {% for skill in jd_match.matching_skills %}
+            <span class="badge bg-success me-1 mb-1">{{ skill }}</span>
+            {% endfor %}
+            <h6 class="fw-bold text-danger mt-3">Missing Skills</h6>
+            {% for skill in jd_match.missing_skills %}
+            <span class="badge bg-danger me-1 mb-1">{{ skill }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </div>
+</div>
 {% endblock %}

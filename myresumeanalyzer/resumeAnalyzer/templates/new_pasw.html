@@ -1,15 +1,37 @@
+
+
+
+
+
 {% extends 'base.html' %}
 {% block content %}
-<h3>Set New password </h3>
-<p>chose the strong new password </p>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-4">
+        <div class="card shadow p-4">
+            <h3 class="fw-bold text-center mb-1">Set New Password</h3>
+            <p class="text-muted text-center mb-4">
+                Choose a strong new password
+            </p>
 
-<form action="" method="post">
-    {% csrf_token %}
-    <label for="new_pasw">New Password </label>
-    <input type="password" name="new_pasw" id="new_pasw" required placeholder="Enter the password ">
-    <label for="new_pasw2">Confrim Password</label>
-    <input type="password" name="new_pasw2" id="new_pasw2" required placeholder="Re-Enter the password">
-    <button type="submit">change password </button>
-
-</form>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">New Password</label>
+                    <input type="password" name="new_pasw"
+                        class="form-control"
+                        placeholder="Enter new password" required>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label">Confirm Password</label>
+                    <input type="password" name="new_pasw2"
+                        class="form-control"
+                        placeholder="Repeat new password" required>
+                </div>
+                <button type="submit" class="btn btn-success w-100">
+                    Change Password
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

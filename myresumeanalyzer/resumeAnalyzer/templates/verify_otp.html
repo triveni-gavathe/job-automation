@@ -1,21 +1,49 @@
+
+
+
+
 {% extends 'base.html' %}
 {% block content %}
-<h3>Enter otp </h3>
-<p> we ssent the otp to your register email 
-    it expires in 10 minutes 
-</p>
-{% if error %}
-    {% for msg in messages %}
-        {{ msg }}
-    {% endfor %}   
-{% endif %}     
-<form action="" method="POST">
-    {% csrf_token %}
-    <label for="otp">OTP Code </label>
-    <input type="text" name="otp" id="otp" placeholder="Enter 6-digit Otp" maxlength="6" required>
-    <button type="submit">verify otp </button>
-</form>
-<p>Did not receive otp 
-    <a href="{% url 'forget_pasw' %}">Try again </a>
-</p>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-4">
+        <div class="card shadow p-4">
+
+            <div class="text-center mb-3">
+                <div style="font-size:48px;">📧</div>
+                <h3 class="fw-bold mt-2">Enter OTP</h3>
+                <p class="text-muted">
+                    We sent a 6-digit code to your email.
+                    It expires in 10 minutes.
+                </p>
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label class="form-label fw-bold">OTP Code</label>
+                    <input
+                        type="text"
+                        name="otp"
+                        class="form-control form-control-lg text-center"
+                        placeholder="Enter 6-digit OTP"
+                        maxlength="6"
+                        style="letter-spacing: 8px; font-size: 24px;"
+                        required
+                    >
+                </div>
+                <button type="submit" class="btn btn-primary w-100 py-2">
+                    Verify OTP
+                </button>
+            </form>
+
+            <hr>
+            <p class="text-center mb-0">
+                Did not receive OTP?
+                <a href="{% url 'forget_pasw' %}" class="text-primary">Try again</a>
+            </p>
+        </div>
+    </div>
+</div>
 {% endblock %}
+
+

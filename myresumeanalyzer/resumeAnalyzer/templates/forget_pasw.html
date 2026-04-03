@@ -1,22 +1,40 @@
+
+
+
 {% extends 'base.html' %}
 {% block content %}
-<h3>forget password </h3>
-<p>enter your username and we will send an otp to your email </p>
-{% if messages %}
-    {% for msg in messages %}
-        <p>{{ msg.tags}}</p>
-            {{ msg }}
-    {% endfor %} 
-{% endif %}    
+<div class="row justify-content-center mt-5">
+    <div class="col-md-4">
+        <div class="card shadow p-4">
+            <h3>Forget Password</h3>
+            <p>Enter your username and we will send an OTP to your email</p>
 
-<form action="" method="POST">
-    {% csrf_token %}
-    <label for="uname_">Username</label>
-    <input type="text" name="uname" id="uname_" placeholder="Enter your username" required>
-    <button type="submit">send otp </button>
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
 
-</form>
-<p>rember password ??
-    <a href="{% url 'login_' %}">Login here </a>
-</p>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <label for="uname_">Username</label>
+                <input type="text" name="uname" id="uname_"
+                    class="form-control mb-3"
+                    placeholder="Enter your username" required>
+                <button type="submit" class="btn btn-primary w-100">
+                    Send OTP
+                </button>
+            </form>
+
+            <p class="mt-3">Remember password?
+                <a href="{% url 'login_' %}">Login here</a>
+            </p>
+        </div>
+    </div>
+</div>
 {% endblock %}
+
+
+

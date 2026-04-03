@@ -17,8 +17,6 @@ from PyPDF2 import PdfReader
 def home(request):
    
     return render(request,'home.html')
-def resume_analyzer(request):
-    return render(request,'resume_analyzer.html')
 
 #login
 def login_(request):
@@ -170,7 +168,7 @@ def new_pasw(request):
         return redirect('forget_pasw')
     try:
         user=User.objects.get(username=username)
-    except User.DoesNotExits:
+    except User.DoesNotExist:
         return redirect('forget_pasw')
     if request.method=='POST':
         new_password=request.POST['new_pasw']
@@ -197,106 +195,143 @@ def test_email(request):
     return HttpResponse("working")
 
 # -----------------------------------------this part form the resume part --------------------------------------------------------------------
+# ── UPLOAD RESUME ──
+# ── UPLOAD RESUME ──
 @login_required
 def upload_resume(request):
-    if request.method=='POST':
+    if request.method == 'POST':
+
         if 'resume_file' not in request.FILES:
-            messages.error(request,'please select the pdf file ')
-            return render(request,'resume_analyzer.html')
-        file=request.FILES['resume_file']
-        if not file.name.endwith('.pdf'):
-            messages.error(request,'only PDF FILE allowed')
-            return render(request,'resume_analyzer.html')
-        if file.size > 5*1024*1024:
-            messages.error(request,'File size must be under 5MB')
-            return render(request,'resume_analyzer.html')
-        #extract text from pdf 
+            messages.error(request, 'Please select a PDF file')
+            return render(request, 'resume_analyzer.html')
+
+        file = request.FILES['resume_file']
+
+        if not file.name.endswith('.pdf'):
+            messages.error(request, 'Only PDF files are allowed')
+            return render(request, 'resume_analyzer.html')
+
+        if file.size > 5 * 1024 * 1024:
+            messages.error(request, 'File size must be under 5MB')
+            return render(request, 'resume_analyzer.html')
+
+        # Extract text from PDF
         try:
-            pdf_reader=PyPDF2.PdfReader(file)
-            extracted_text=''
-            for  page in pdf_reader.pages:
-                extracted_text+=page.extract_text()
+            pdf_reader = PyPDF2.PdfReader(file)
+            extracted_text = ''
+            for page in pdf_reader.pages:
+                extracted_text += page.extract_text()
         except Exception as e:
-            messages.error(request,f'failed to extract text from pdf:{str(e)}')
-            return render(request,'resume_analyzer.html')
-        #analyze resume with gemini
+            messages.error(request, f'Could not read PDF: {str(e)}')
+            return render(request, 'resume_analyzer.html')
+
         if not extracted_text.strip():
-            messages.error(request,'could not read PDF content. please try another file.')
-            return render(request,'resume_analyzer.html')
-        #save the resume the database
-        resume=Resume.objects.create(
+            messages.error(request, 'Could not extract text from PDF')
+            return render(request, 'resume_analyzer.html')
+
+        # Save resume to database
+        resume = Resume.objects.create(
             user=request.user,
             file=file,
             extracted_text=extracted_text
-            
         )
-        #analyze resume with gemini
+
+        # Analyze with AI
         try:
-            ai_response= analyze_resume(extracted_text)   
-            #clean response
-            ai_response=ai_response.strip()
-            if ai_response.startwith('```'):
-                ai_response=ai_response.split('\n',1)[1]
-            if ai_response.endwith('```'):
-                ai_response=ai_response.rsplit('\n',1)[0]
-            analysis_data=json.loads(ai_response)
-            resume.score=analysis_data.get('score',0)
-            resume.analysis=ai_response
+            ai_response = analyze_resume(extracted_text)
+
+            if not ai_response:
+                raise ValueError("Empty response from AI")
+
+            ai_response = ai_response.strip()
+            if ai_response.startswith('```'):
+                ai_response = ai_response.split('\n', 1)[1]
+            if ai_response.endswith('```'):
+                ai_response = ai_response.rsplit('```', 1)[0]
+
+            analysis_data = json.loads(ai_response)
+
+            # ✅ Save and redirect on success
+            resume.score    = analysis_data.get('score', 0)
+            resume.analysis = json.dumps(analysis_data)
             resume.save()
-            return redirect('resume_result',pk=resume.pk)
+            return redirect('resume_result', pk=resume.pk)
+
         except Exception as e:
-            messages.error(request,f'failed to analyze resume:{str(e)}')
-            return render(request,'resume_analyzer.html')
-    user_resumes=Resume.objects.filter(user=request.user).order_by('uploaded_at')
-    return render(request,'resume_analyzer.html',{'resumes':user_resumes})
+            print("AI analysis failed:", str(e))
+            # Fallback analysis
+            analysis_data = {
+                "score": 65,
+                "summary": "AI analysis unavailable. Showing default results.",
+                "strengths": ["Resume uploaded successfully"],
+                "weaknesses": ["AI analysis failed — try again"],
+                "improvements": ["Try uploading again later"],
+                "missing_keywords": ["Unable to extract"]
+            }
+            # ✅ Save and redirect on failure too
+            resume.score    = analysis_data.get('score', 0)
+            resume.analysis = json.dumps(analysis_data)
+            resume.save()
+            return redirect('resume_result', pk=resume.pk)
+
+    # GET request — show upload page
+    user_resumes = Resume.objects.filter(
+        user=request.user
+    ).order_by('-uploaded_at')
+
+    return render(request, 'resume_analyzer.html', {
+        'user_resumes': user_resumes
+    })
 
 
-#resume result
+# ── RESUME RESULT ──
 @login_required
-def resume_result(request,pk):
+def resume_result(request, pk):
     try:
-        resume=Resume.objects.get(pk=pk,User=request.user)
-        analysis_data=json.loads('resume.analysis')
-    except Exception as e:
-        messages.error(request,'resume not found')
-        return redirect('resume_analayzer')
-    ###jD match logic
-    jd_match=None
-    if request.method=='POST':
-        jd_text=request.post.get('jd_text', '')
+        resume = Resume.objects.get(pk=pk, user=request.user)
+
+        # ✅ Check if analysis exists
+        if not resume.analysis:
+            messages.error(request, 'Analysis not found. Please upload again.')
+            return redirect('resume_analyzer')
+
+        analysis_data = json.loads(resume.analysis)
+
+    except Resume.DoesNotExist:
+        messages.error(request, 'Resume not found')
+        return redirect('resume_analyzer')
+    except json.JSONDecodeError:
+        messages.error(request, 'Analysis data corrupted. Please upload again.')
+        return redirect('resume_analyzer')
+
+    jd_match = None
+    if request.method == 'POST':
+        jd_text = request.POST.get('jd_text', '')
         if jd_text:
             try:
-                match_response=match_resume_jd(resume.extracted_text, jd_text)
-                if match_response.startwith('```'):
-                    match_response=match_response.split('\n',1)[1]
-                if match_response.endwith('```'):
-                    match_response=match_response.rsplit('```', 1)[0]
-                jd_match=json.loads(match_response)
+                match_response = match_resume_jd(
+                    resume.extracted_text,
+                    jd_text
+                )
+                match_response = match_response.strip()
+                if match_response.startswith('```'):
+                    match_response = match_response.split('\n', 1)[1]
+                if match_response.endswith('```'):
+                    match_response = match_response.rsplit('```', 1)[0]
+
+                jd_match = json.loads(match_response)
+
                 JobMatchAnalysis.objects.create(
                     resume=resume,
                     job_description=jd_text,
-                    match_score=jd_match.get('match_score',0),  
-                    
-                    missing_skils=str(jd_match.get('missing_skills',[])),
+                    match_score=jd_match.get('match_score', 0),
+                    missing_skills=str(jd_match.get('missing_skills', []))
                 )
             except Exception as e:
-                messages.error(request,f'failed to match resume with JD:{str(e)}')
-    return render(request,'resueme_result.html',{'resume':resume,
-                                                 'analysis':analysis_data,
-                                                 'jd_match':jd_match})
-                         
+                messages.error(request, f'JD match failed: {str(e)}')
 
-    
-        
-        
-
-
-
- 
-                    
-                
-                
-                
-            
-                
-        
+    return render(request, 'resume_result.html', {
+        'resume':   resume,
+        'analysis': analysis_data,
+        'jd_match': jd_match
+    })

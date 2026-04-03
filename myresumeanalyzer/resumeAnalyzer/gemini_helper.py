@@ -1,46 +1,56 @@
-from google import genai
+from groq import Groq
 from django.conf import settings
-client=genai.Client(api_key=settings.GEMINI_API_KEY)
+client=Groq(api_key=settings.GROQ_API_KEY)
+
+
 
 def analyze_resume(resume_text):
-    prompt=f"""
-    you are an expert HR recuriter and resume coach
-    analyze the following resume and respond only in json format
-    no extra text. just JSON
-    {{
-        "score":[<3 specific stengths as strings>],
-        "weaknesses":[<3 specific weaknesses as strings>],
-        "improvements":[<5 actinable improvment as strings >],
-        "missing_keyword":[<5 important keyword missing as strings>],
-        "summary":<2 line overall summary>"
-    }}
-    
-    Resume:
-    {resume_text}
-    """
-    response=client.models.generate_content(
-        model="gemini-2.0-flash-lite",
-        content=prompt
+    prompt = f"""
+You are an expert HR recruiter and resume coach.
+Analyze the following resume and respond ONLY in JSON format.
+No extra text. Just JSON.
+
+{{
+  "score": <number out of 100>,
+  "strengths": [<3 specific strengths as strings>],
+  "weaknesses": [<3 specific weaknesses as strings>],
+  "improvements": [<5 actionable improvements as strings>],
+  "missing_keywords": [<5 important keywords missing as strings>],
+  "summary": "<2 line overall summary>"
+}}
+
+Resume:
+{resume_text}
+"""
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        
+        messages=[{"role": "user", "content": prompt}]
     )
-    return response.text
-def match_resume_jd(resume_text,jd_text):
-    prompt=f"""
-    you are an expert HR recuriter,
-    compare this resume againts the job decription.
-    Respond ONLY  in JSON format.no extra text .just JSON.
-    {{
-        "match_score":<percentage as number>,
-        "matching_skils":[<skils that as strings>]
-        "missing_skils":[<requrired skils missing as stirngs>]
-        "recommendation":"<onr line adivce>"RecursionError
-    }}
-    Resume:
-    {resume_text}
-    JOb Decription:
-    {jd_text}
-    """
-    response=client.models.generate_content(
-        model="gemini-2.0-flash-lite",
-        contents=prompt
+    return response.choices[0].message.content
+
+
+def match_resume_jd(resume_text, jd_text):
+    prompt = f"""
+You are an expert HR recruiter.
+Compare this resume against the job description.
+Respond ONLY in JSON format. No extra text. Just JSON.
+
+{{
+  "match_score": <percentage as number>,
+  "matching_skills": [<skills that match as strings>],
+  "missing_skills": [<required skills missing as strings>],
+  "recommendation": "<one line advice>"
+}}
+
+Resume:
+{resume_text}
+
+Job Description:
+{jd_text}
+"""
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[{"role": "user", "content": prompt}]
     )
-    return response.text
+    return response.choices[0].message.content

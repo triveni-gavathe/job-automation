@@ -1,36 +1,37 @@
+
+
+
 {% extends 'base.html' %}
-{% load static %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{% static  'login.css' %}">
-{% endblock %}
-
-   
-{{ messages }}
-
-
-<main>
-
 {% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-4">
+        <div class="card shadow p-4">
+            <h3 class="fw-bold text-center mb-1">Welcome back</h3>
+            <p class="text-muted text-center mb-4">Login to your account</p>
 
-  {% if messages %} 
-    {% for msg in messages %}
-        {{ msg }}
-    {% endfor %}    
-{% endif %} 
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" name="uname"
+                        class="form-control" placeholder="Enter username" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password"
+                        class="form-control" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 py-2">
+                    Login
+                </button>
+            </form>
 
-    <section id="login_main">
-        <form action="" method="post">
-            {% csrf_token %}
-            <label for="uname">Username:</label>
-            <input type="text" name="uname" id="uname" placeholder="Enter the username"> 
-            <label for="pasw">Password:</label>
-            <input type="password" name="password" id="pasw" placeholder="Enter the pasword">
-            <button type="submit">Login</button>
-            <a href="{% url 'forget_pasw' %}">Forget Password ??</a>
-
-        </form>
-    </section>
-</main>
-
+            <hr>
+            <p class="text-center mb-0">
+                No account?
+                <a href="/register/" class="text-primary fw-bold">Register here</a>
+            </p>
+        </div>
+    </div>
+</div>
 {% endblock %}

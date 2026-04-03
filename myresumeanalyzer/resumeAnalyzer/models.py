@@ -8,7 +8,7 @@ class Resume(models.Model):
     extracted_text=models.TextField(blank=True)
     score=models.IntegerField(default=0)
     analysis=models.TextField(blank=True)
-    uploaded_at=models.DateTimeField(auto_created=True)
+    uploaded_at=models.DateTimeField(auto_now_add=True)
     
     
     def __str__(self):
@@ -28,7 +28,7 @@ class OTP(models.Model):
         return f"{self.user.username}-{self.otp_code}"
 
 class JobMatchAnalysis(models.Model):
-    Resume=models.ForeignKey(Resume,on_delete=models.CASCADE)
+    resume=models.ForeignKey(Resume,on_delete=models.CASCADE)
     job_description=models.TextField()
     match_score=models.IntegerField(default=0)
     missing_skills=models.TextField(blank=True)

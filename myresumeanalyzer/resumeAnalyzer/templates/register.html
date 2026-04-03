@@ -1,31 +1,59 @@
+
+
+
+
+
 {% extends 'base.html' %}
 {% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-5">
+        <div class="card shadow p-4">
+            <h3 class="fw-bold text-center mb-1">Create Account</h3>
+            <p class="text-muted text-center mb-4">Start your job journey today</p>
 
-<main id="main">
-    {% if messages %}
-        {% for msg in messages %}
-            <p>{{ msg }}</p>
-        {% endfor %}    
-    {% endif %}    
-    <section id="form-content">
-        <p class="text-center">Already have account? <a href="{% url 'login_' %}">Login here</a></p>
-        <form action="" class="form-main" method="post">
-            {% csrf_token %}
-            <label for="fname">Enter First Nmae:</label>
-            <input type="text" name="fname" id="fname" required> <br>
-            <label for="lname">Enter Last Name:</label>
-            <input type="text" name="lname" id="lname" required> <br>
-            <label for="email">Enter the Email:</label>
-            <input type="email" name="email" id="email" required> <br>
-            <label for="uname">Enter username:</label>
-            <input type="text" name="uname" id="uname" required> <br>
-            <label for="pasw">Enter your Password:</label>
-            <input type="password" name="pasw" id="pasw" required> <br>
-            <label for="pasw2">Confrim Password </label>
-            <input type="password" name="pasw2" id="pasw2" required> <br>
-            <button type="submit">Register </button>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" name="uname"
+                        class="form-control" placeholder="Choose a username" required>
+                </div>
+                 <div class="mb-3">
+                    <label class="form-label">First Name</label>
+                    <input type="text" name="fname"
+                        class="form-control" placeholder="Enter your first name" required>
+                </div>
+                 <div class="mb-3">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" name="lname"
+                        class="form-control" placeholder="Enter your last name" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email"
+                        class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="pasw"
+                        class="form-control" placeholder="Create a password" required>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label">Confirm Password</label>
+                    <input type="password" name="pasw2"
+                        class="form-control" placeholder="Repeat your password" required>
+                </div>
+                <button type="submit" class="btn btn-success w-100 py-2">
+                    Create Account
+                </button>
+            </form>
 
-        </form>
-    </section>
-</main>
+            <hr>
+            <p class="text-center mb-0">
+                Already have account?
+                <a href="{% url 'login_' %}" class="text-primary fw-bold">Login here</a>
+            </p>
+        </div>
+    </div>
+</div>
 {% endblock %}

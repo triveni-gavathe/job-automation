@@ -140,7 +140,7 @@ load_dotenv()
 
 
 #gemini key 
-GEMINI_API_KEY=os.getenv('GEMINI_API_KEY')
+GROQ_API_KEY=os.getenv('GROQ_API_KEY')
 # email address (for alerts later)
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'  #its emails  server used the smtp real server used in the prodcution
 EMAIL_HOST='smtp.gmail.com'

@@ -1,45 +1,112 @@
+
+
+
+
+
+
+
 {% extends 'base.html' %}
-{% load static %}
-{% block extra_css %}
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+
+        {% if request.user.is_authenticated %}
+        <!-- ✅ LOGGED IN — Show Profile -->
+        <div class="card shadow p-4 mb-3">
+            <div class="text-center mb-4">
+                <div style="width:80px;height:80px;background:#0d6efd;
+                    border-radius:50%;display:flex;align-items:center;
+                    justify-content:center;margin:0 auto 12px;
+                    font-size:32px;color:white;">
+                    {{ request.user.username|first|upper }}
+                </div>
+                <h4 class="fw-bold mb-0">{{ request.user.username }}</h4>
+                <p class="text-muted">{{ request.user.email }}</p>
+                <span class="badge bg-success">Active Account</span>
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">First Name</label>
+                        <input type="text" name="first_name"
+                            class="form-control"
+                            value="{{ request.user.first_name }}"
+                            placeholder="Enter first name">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" name="last_name"
+                            class="form-control"
+                            value="{{ request.user.last_name }}"
+                            placeholder="Enter last name">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email"
+                        class="form-control"
+                        value="{{ request.user.email }}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-control"
+                        value="{{ request.user.username }}" disabled>
+                    <div class="form-text">Username cannot be changed</div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">
+                    Save Changes
+                </button>
+            </form>
+        </div>
+
+        <!-- Account Stats -->
+        <div class="card shadow p-4">
+            <h5 class="fw-bold mb-3">Account Info</h5>
+            <div class="row text-center">
+                <div class="col-4">
+                    <h4 class="fw-bold text-primary mb-0">0</h4>
+                    <small class="text-muted">Resumes</small>
+                </div>
+                <div class="col-4">
+                    <h4 class="fw-bold text-success mb-0">0</h4>
+                    <small class="text-muted">Jobs Saved</small>
+                </div>
+                <div class="col-4">
+                    <h4 class="fw-bold text-warning mb-0">0</h4>
+                    <small class="text-muted">Applied</small>
+                </div>
+            </div>
+            <hr>
+            <p class="text-muted mb-0 small">
+                Member since: {{ request.user.date_joined|date:"d M Y" }}
+            </p>
+        </div>
+
+        {% else %}
+        <!-- ❌ NOT LOGGED IN — Show Message -->
+        <div class="card shadow p-5 text-center">
+            <div style="font-size:64px;">👤</div>
+            <h3 class="fw-bold mt-3">No Profile Yet</h3>
+            <p class="text-muted">
+                You are not logged in. Please login to view
+                and edit your profile.
+            </p>
+            <div class="d-flex gap-2 justify-content-center mt-3">
+                <a href="{% url 'login_' %}" class="btn btn-primary px-4">
+                    Login
+                </a>
+                <a href="{% url 'register' %}" class="btn btn-outline-primary px-4">
+                    Register
+                </a>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
 {% endblock %}
 
-{% block content %}
-{% if request.user.is_authenticated %}
-    <p>username:{{ request.user.username }}</p>
-    <p> user:{{ request.user.username }}</p>
-    <p>frist name:{{ request.user.first_name }}</p>
-    <p>last name:{{ request.user.last_name }}</p>
-    <p>Email:{{ request.user.email }}</p>
-    <p></p>
-
-<form action="" method="post">
-    {% csrf_token%}
-    <h3>update profile</h3>
-    <label for="fname">First Name:</label>
-    <input type="text" name="fname" id="fname" value="{{ request.user.first_name }}">
-    <label for="lname">Last Name:</label>
-    <input type="text" name="lname" id="lname" value="{{ request.user.last_name}}">
-    <label for="email">Email:</label>
-    <input type="email" name="email" id="email"  value="{{ request.user.email }}">
-    <label for="unmae">Username</label>
-    <input type="text" name="uname" id="uname" value="{{ request.user.username }}">
-    <button type="submit">save changes </button>
 
 
-</form>
-
-
-<section>
-<p> Account info </p>
-<div> resume</div>
-<div>job saved </div>
-<div>apllied </div>
-<p>member since :{{ request.user.date__joined|date:"d m y" }}</p>
-</section>
-{% else  %}
-<p> you are m=not logged in please login to view and edit  your profile profile </p>
-
-<a href="{% url 'login_' %}">login here </a>
-<a href="{% url 'register' %}">register</a>
-{% endif %}
-{% endblock  %}
