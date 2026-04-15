@@ -76,7 +76,7 @@ def profile(request):
         if not request.user.is_authenticated:
             return redirect('login_')
         U=request.user
-        U.first_name=request.POST.get('fname','')
+        U.first_name=request.POST.get('fname','')  #Get the value of fname from the form. If it’s not there, just use an empty string. ' '”
         U.last_name=request.POST.get('lname' ,'')
         U.email=request.POST.get('email','')
         U.save()
@@ -254,6 +254,8 @@ def upload_resume(request):
             # ✅ Save and redirect on success
             resume.score    = analysis_data.get('score', 0)
             resume.analysis = json.dumps(analysis_data)
+            print(analysis_data)
+            
             resume.save()
             return redirect('resume_result', pk=resume.pk)
 
