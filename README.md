@@ -95,7 +95,44 @@ ai-career-assistant/
 
 ## 📸 Screenshots
 
-> Add screenshots here after deployment
+---
+
+### 🟢 1. Login / Authentication Page
+> Secure user login and signup system with validation.
+
+![Login Page](LoginPage.png)
+
+---
+
+### 🏠 2. Home / Dashboard
+> Overview of user activity and main features.
+
+![Dashboard](Dashboard.png)
+
+---
+
+### 📊 3. Feature Pages / Scoring System
+> Core functionality showing resume analysis and GD matching.
+
+**Resume Score**
+![Resume Score](ResumeScore.png)
+
+**GD Match Score**
+![GD Match Score](GD_matchscore.png)
+
+---
+
+### 👤 4. Profile Page
+> User profile details and personalized insights.
+
+![Profile](ProfilePage.png)
+
+---
+
+### 📝 5. Register Page
+> New user registration with validation and secure signup flow.
+
+![Register](Registerpage.png)
 
 ---
 
