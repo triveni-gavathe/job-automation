@@ -1,0 +1,51 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-7">
+
+        <div class="card shadow p-4 mb-4">
+            <h3 class="fw-bold mb-1">📄 Resume Analyzer</h3>
+            <p class="text-muted">Upload your resume and get AI powered feedback</p>
+
+            <form method="POST" action="{% url 'resume_analyzer' %}"  enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Select Resume PDF</label>
+                    <input type="file" name="resume_file"
+                        class="form-control" accept=".pdf" required>
+                    <div class="form-text">PDF only · Max 5MB</div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 py-2">
+                    Analyze with AI
+                </button>
+            </form>
+        </div>
+
+        <!-- Previous Resumes -->
+        {% if user_resumes %}
+        <div class="card shadow p-4">
+            <h5 class="fw-bold mb-3">Previous Resumes</h5>
+            {% for r in user_resumes %}
+            <div class="d-flex justify-content-between align-items-center
+                border-bottom py-2">
+                <span class="text-muted" style="font-size:0.9rem;">
+                    {{ r.uploaded_at|date:"d M Y — H:i" }}
+                </span>
+                <div>
+                    <span class="badge bg-primary me-2">
+                        Score: {{ r.score }}/100
+                    </span>
+                    <a href="{% url 'resume_result' r.pk %}"
+                        class="btn btn-sm btn-outline-primary">
+                        View
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}
