@@ -1,6 +1,0 @@
-.env
-venv/myresumeanalyzer/resumeAnalyzer/views.py
-__pycache__/
-*.pyc
-db.sqlite3
-media/
