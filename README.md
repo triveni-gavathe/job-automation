@@ -193,7 +193,7 @@ EMAIL_PASS=your_app_password
 
 **Triveni Gavathe**
 
-* LinkedIn: https://linkedin.com/in/triveni-gavathe
+* LinkedIn:https://www.linkedin.com/in/triveni-gavathe-/
 * GitHub: https://github.com/triveni-gavathe
 * Email: [triveni.r.gavathe.work@gmail.com](mailto:triveni.r.gavathe.work@gmail.com)
 
